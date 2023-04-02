@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.diadia.Partita;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -20,20 +19,20 @@ class PartitaTest {
 	
 	@Test //getCfu
 	void testGetCfu () {
-		assertEquals(20, this.partita.getCfu());
+		assertEquals(20, this.partita.getGiocatore().getCfu());
 	}
 
 	@Test //setCfu		-setto a 0-
 	void testSetCfu () {
-		this.partita.setCfu(0);
-		assertEquals(0, this.partita.getCfu());
+		this.partita.getGiocatore().setCfu(0);
+		assertEquals(0, this.partita.getGiocatore().getCfu());
 	}
 	
 	@Test //setCfu		-setto a variabile (17)-
 	void testSetCfu2 () {
 		int j= 17;
-		this.partita.setCfu(j);
-		assertEquals(17, this.partita.getCfu());
+		this.partita.getGiocatore().setCfu(j);
+		assertEquals(17, this.partita.getGiocatore().getCfu());
 	}
 	
 	
@@ -62,7 +61,7 @@ class PartitaTest {
 	
 	@Test //isFinita	// cfu= 0
 	void testIsFinita3 () {
-		this.partita.setCfu(0);
+		this.partita.getGiocatore().setCfu(0);
 		assertTrue(this.partita.isFinita());
 	}
 	
@@ -70,6 +69,6 @@ class PartitaTest {
 	void testIsFinita4 () {
 		Stanza prossimaStanza= this.partita.getLabirinto().getStanzaVincente();
 		this.partita.getLabirinto().setStanzaCorrente(prossimaStanza);
-		assertTrue(this.partita.isFinita());
+		assertTrue(this.partita.vinta());
 	}
 }
