@@ -1,9 +1,9 @@
 package it.uniroma3.diadia;
 
-import java.util.Scanner;
 
-import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -27,14 +27,12 @@ public class DiaDia {
 			+ "o regalarli se pensi che possano far comodo a qualcuno.\n\n"
 			+ "Per conoscere le istruzioni usa il comando 'aiuto'.";
 
-	static final private String[] elencoComandi = { "vai", "aiuto", "prendi", "posa", "fine" };
-
 	private Partita partita;
-	private IOConsole console;
+	private IO console;
 
-	public DiaDia(String nomeUtente, IOConsole console) {
-		this.partita = new Partita(nomeUtente);
+	public DiaDia(IO console, String nomeUtente) {
 		this.console= console;
+		this.partita = new Partita(nomeUtente);		
 	}
 
 	public void gioca() {
@@ -52,7 +50,12 @@ public class DiaDia {
 	 *         altrimenti
 	 */
 	private boolean processaIstruzione(String istruzione) {
-		Comando comandoDaEseguire = new Comando(istruzione);
+		Comando comandoDaEseguire;
+		FabbricaDiComandiFisarmonica fisarmonica= new FabbricaDiComandiFisarmonica(this.console);
+		comandoDaEseguire= fisarmonica.costruisciComando(istruzione);
+		comandoDaEseguire.esegui(this.partita);
+		
+		/*
 
 		// COMANDO FISARMONICA ( ELENCO DI COMANDI DA ESEGUIRE "FINE" "VAI")
 		if (comandoDaEseguire.getNome().equals("fine")) {
@@ -68,6 +71,7 @@ public class DiaDia {
 			this.posa(comandoDaEseguire.getParametro());
 		else
 			this.console.mostraMessaggio("Comando sconosciuto");
+		*/
 		if (this.partita.vinta()) {
 			this.console.mostraMessaggio("Hai vinto!");
 			return true;
@@ -85,6 +89,7 @@ public class DiaDia {
 	/**
 	 * Stampa informazioni di aiuto.
 	 */
+	/*
 	private void aiuto() {
 		this.console.mostraMessaggio("\nNome utente:\t" + this.partita.getGiocatore().getNome());
 		this.console.mostraMessaggio("Cfu correnti:\t" + this.partita.getGiocatore().getCfu());
@@ -95,11 +100,14 @@ public class DiaDia {
 		this.console.mostraMessaggio("\n");
 
 	}
+*/
 
+	
 	/**
 	 * Cerca di andare in una direzione. Se c'e' una stanza ci entra e ne stampa il
 	 * nome, altrimenti stampa un messaggio di errore
 	 */
+	/*
 	private void vai(String direzione) {
 		if (direzione == null)
 			this.console.mostraMessaggio("Dove vuoi andare "+ this.partita.getGiocatore().getNome() + "?");
@@ -117,12 +125,14 @@ public class DiaDia {
 			this.console.mostraMessaggio(partita.getLabirinto().getStanzaCorrente().getDescrizione());
 		}
 	}
+	*/
 
 	/**
 	 * Prende il nome dell'attrezzo da prendere, lo rimuove dalla stanza e lo mette nella
 	 * borsa.
 	 * @param nome dell'attrezzo
 	 */
+	/*
 	private void prendi(String attrezzo) {
 		if (this.partita.getLabirinto().getStanzaCorrente().getNumeroAttrezzi() == 0)
 			this.console.mostraMessaggio("Non ci sono attrezzi nella stanza");
@@ -141,7 +151,8 @@ public class DiaDia {
 
 			}
 	}
-
+	*/
+	/*
 	private void posa(String attrezzo) {
 		if (this.partita.getGiocatore().getBorsa().getNumeroAttrezzi() == 0)
 			this.console.mostraMessaggio("Non ci sono attrezzi nella borsa");
@@ -161,20 +172,23 @@ public class DiaDia {
 						this.console.mostraMessaggio("OPS ... Qualcosa è andato storto!");
 			}
 	}
+*/
 
 	/**
 	 * Comando "Fine".
 	 */
+	/*
 	private void fine() {
 		this.console.mostraMessaggio("Grazie di aver giocato!"); // si desidera smettere
 	}
+	*/
 
 	public static void main(String[] argc) {
-		IOConsole console= new IOConsole();
+		IO console= new IOConsole();
 		String nomeUtente;
 		console.mostraMessaggio("Benvenuto\nInserisci il tuo nome utente:\t");
 		nomeUtente= console.leggiRiga();
-		DiaDia gioco = new DiaDia(nomeUtente, console);
+		DiaDia gioco = new DiaDia(console, nomeUtente);
 		gioco.gioca();
 	}
 }
