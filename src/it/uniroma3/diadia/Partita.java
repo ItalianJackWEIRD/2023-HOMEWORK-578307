@@ -18,8 +18,8 @@ public class Partita {
 	private boolean finita;
 	private Giocatore giocatore;
 
-	public Partita(String nome) {
-		this.labirinto= new Labirinto();
+	public Partita(String nome, Labirinto labirinto) {
+		this.labirinto= labirinto;
 		this.finita = false;
 		this.giocatore= new Giocatore(nome);
 

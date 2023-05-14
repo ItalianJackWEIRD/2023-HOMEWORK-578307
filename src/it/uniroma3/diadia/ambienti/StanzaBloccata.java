@@ -1,13 +1,11 @@
 package it.uniroma3.diadia.ambienti;
 
-import it.uniroma3.diadia.attrezzi.Attrezzo;
-
 public class StanzaBloccata extends Stanza{
 	
 	private String direzioneBloccata;
-	private Attrezzo attrezzoSbloccante;
+	private String attrezzoSbloccante;
 	
-	public StanzaBloccata (String nome, Attrezzo sbloccante, String direzioneBloccata) {
+	public StanzaBloccata (String nome, String sbloccante, String direzioneBloccata) {
 		super(nome);
 		this.direzioneBloccata= direzioneBloccata;
 		this.attrezzoSbloccante= sbloccante;
@@ -15,7 +13,7 @@ public class StanzaBloccata extends Stanza{
 	
 	@Override
 	public Stanza getStanzaAdiacente (String direzione) {
-		if ( direzioneBloccata.equals(direzione) && !this.hasAttrezzo(attrezzoSbloccante.getNome()))
+		if ( direzioneBloccata.equals(direzione) && !this.hasAttrezzo(attrezzoSbloccante))
 			return this;
 		else
 			return super.getStanzaAdiacente(direzione);
@@ -24,7 +22,7 @@ public class StanzaBloccata extends Stanza{
 	@Override
 	public String getDescrizione () {
 		StringBuilder descr= new StringBuilder();
-		if (!this.hasAttrezzo(attrezzoSbloccante.getNome())) {
+		if (!this.hasAttrezzo(attrezzoSbloccante)) {
 			descr.append(super.getDescrizione());
 			descr.append("La stanza ha la direzione " + direzioneBloccata.toUpperCase() + " bloccata. Per accedervi posare la chiave...\n");
 			return descr.toString();

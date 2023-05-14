@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 
 public class ComandoAiutoTest {
 
@@ -15,7 +16,7 @@ public class ComandoAiutoTest {
 	public void setUp() throws Exception {
 		IO console= new IOConsole();
 		String nome= "G";
-		DiaDia d= new DiaDia(console, nome);
+		DiaDia d= new DiaDia(console, nome, new LabirintoBuilder().getLabirinto());
 		d.gioca();
 	}
 

@@ -1,8 +1,6 @@
 package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,10 +13,10 @@ class StanzaBloccataTest {
 	private Attrezzo grimaldello;
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	public void setUp() {
 		stanza = new Stanza("Stanzetta");
 		grimaldello = new Attrezzo("grimaldello", 1);
-		stanzaBloccata = new StanzaBloccata("StanzaBloccata", grimaldello, "ovest");
+		stanzaBloccata = new StanzaBloccata("StanzaBloccata", "grimaldello", "ovest");
 		stanzaBloccata.impostaStanzaAdiacente("ovest", stanza);
 
 	}

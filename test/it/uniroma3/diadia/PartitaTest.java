@@ -1,9 +1,11 @@
 package it.uniroma3.diadia;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +15,29 @@ class PartitaTest {
 	
 	@BeforeEach
 	public void setUp () {
-		this.partita= new Partita ("pippo");
+		this.partita= new Partita ("pippo", new LabirintoBuilder()
+				.addStanzaBloccata("Atrio", "chiave", "nord")
+				.addAttrezzo("ascia", 5)
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenze("Atrio", "Biblioteca", "nord")
+				.addStanza("N10")
+				.addAttrezzo("lanterna", 3)
+				.addAdiacenze("Atrio", "N10", "sud")
+				.addAdiacenze("N10", "Atrio", "nord")
+				.addStanzaBuia("N11", "lanterna")
+				.addAttrezzo("osso", 2)
+				.addAdiacenze("Atrio", "N11", "est")
+				.addAdiacenze("N10", "N11", "est")
+				.addAdiacenze("N11", "Atrio", "ovest")
+				.addStanzaMagica("Laboratorio Campus")
+				.addAttrezzo("chiave", 1)
+				.addAdiacenze("N11", "Laboratorio Campus", "est")
+				.addAdiacenze("Atrio", "Laboratorio Campus", "ovest")
+				.addAdiacenze("N10", "Laboratorio Campus", "ovest")
+				.addAdiacenze("Laboratorio Campus", "Atrio", "est")
+				.addAdiacenze("Laboratorio Campus", "N11", "ovest")
+				.setStanzaIniziale("Atrio")
+				.getLabirinto());
 	}
 	
 	
@@ -70,5 +94,12 @@ class PartitaTest {
 		Stanza prossimaStanza= this.partita.getLabirinto().getStanzaVincente();
 		this.partita.getLabirinto().setStanzaCorrente(prossimaStanza);
 		assertTrue(this.partita.vinta());
+	}
+	
+	@Test
+	public void testSetStanzaCorrente() {
+		Stanza s= new Stanza("stanza");
+		partita.getLabirinto().setStanzaCorrente(s);
+		assertEquals(s, partita.getLabirinto().getStanzaCorrente());
 	}
 }

@@ -4,9 +4,9 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaBuia extends Stanza{
 
-	private Attrezzo attrezzoLucente;
+	private String attrezzoLucente;
 
-	public StanzaBuia (String nome, Attrezzo lucente) {
+	public StanzaBuia (String nome, String lucente) {
 		super(nome);
 		this.attrezzoLucente= lucente;
 	}
@@ -15,7 +15,7 @@ public class StanzaBuia extends Stanza{
 	public String getDescrizione () {
 		StringBuilder buio= new StringBuilder();
 		buio.append("nella stanza c'è un buio pesto ... non si vede niente!");
-		if (!this.hasAttrezzo(attrezzoLucente.getNome()))
+		if (!this.hasAttrezzo(attrezzoLucente))
 			buio.append("\nprova a posare una lanterna per illuminare.\n");
 		else {
 			buio.append("\nla lanterna illumina la stanza!\n");
