@@ -5,13 +5,13 @@ import java.util.List;
 import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 
 public class Fixture {
-	public static IOSimulator creaSimulazionePartitaEGiocaEasy(List<String> comandiDaLeggere) {
+	public static IOSimulator creaSimulazionePartitaEGiocaEasy(List<String> comandiDaLeggere) throws Exception {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Labirinto labirinto = new LabirintoBuilder()
 				.addStanza("Atrio")
@@ -26,7 +26,7 @@ public class Fixture {
 		return io;
 	}
 
-	public static IOSimulator creaSimulazionePartitaEGiocaHard(List<String> comandiDaLeggere) {
+	public static IOSimulator creaSimulazionePartitaEGiocaHard(List<String> comandiDaLeggere) throws Exception {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Labirinto labirinto = new LabirintoBuilder()
 				.addStanza("Atrio")
@@ -47,7 +47,7 @@ public class Fixture {
 		return io;
 	}
 
-	public static IOSimulator creaSimulazionePartitaEGiocaMonolocale(List<String> comandiDaLeggere) {
+	public static IOSimulator creaSimulazionePartitaEGiocaMonolocale(List<String> comandiDaLeggere) throws Exception {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Labirinto monolocale = new LabirintoBuilder()
 				.addStanza("salotto")
@@ -60,7 +60,7 @@ public class Fixture {
 	}
 	
 	
-	public static IOSimulator creaSimulazionePartitaEGiocaBilocale(List<String> comandiDaLeggere) {
+	public static IOSimulator creaSimulazionePartitaEGiocaBilocale(List<String> comandiDaLeggere) throws Exception {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Labirinto bilocale = new LabirintoBuilder()
 				.addStanza("salotto")
@@ -74,7 +74,7 @@ public class Fixture {
 		return io;
 	}
 	
-	public static IOSimulator creaSimulazionePartitaEGiocaTrilocale(List<String> comandiDaLeggere) {
+	public static IOSimulator creaSimulazionePartitaEGiocaTrilocale(List<String> comandiDaLeggere) throws Exception {
 		IOSimulator io = new IOSimulator(comandiDaLeggere);
 		Labirinto trilocale = new LabirintoBuilder()
 				.addStanza("salotto")

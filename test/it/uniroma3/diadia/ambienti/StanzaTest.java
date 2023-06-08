@@ -16,19 +16,19 @@ public class StanzaTest {
 
 	@Test //caso base
 	void testGetStanzaAdiacente () {
-		assertNull(s1.getStanzaAdiacente("nord"));
+		assertNull(s1.getStanzaAdiacente(Direzione.nord));
 	}
 
 	@Test //caso non null
 	void testGetStanzaAdiacente2 () {
-		s1.impostaStanzaAdiacente("sud", s2);
-		assertEquals(s2, s1.getStanzaAdiacente("sud"));
+		s1.impostaStanzaAdiacente(Direzione.sud, s2);
+		assertEquals(s2, s1.getStanzaAdiacente(Direzione.sud));
 	}
 
 	@Test	//caso una sola stanza
 	void testImpostaStanzaAdiacente () {
-		s1.impostaStanzaAdiacente("nord", s2);
-		assertEquals(s2, s1.getStanzaAdiacente("nord"));
+		s1.impostaStanzaAdiacente(Direzione.nord, s2);
+		assertEquals(s2, s1.getStanzaAdiacente(Direzione.nord));
 	}
 	
 	@Test

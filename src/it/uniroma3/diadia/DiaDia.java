@@ -1,10 +1,11 @@
 package it.uniroma3.diadia;
 
 
+import java.util.Scanner;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.AbstractComando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 
 
 /**
@@ -32,12 +33,12 @@ public class DiaDia {
 	private Partita partita;
 	private IO console;
 
-	public DiaDia(IO console, String nomeUtente, Labirinto labirinto) {
+	public DiaDia(IO console, String nomeUtente, Labirinto labirinto, int cfu, int pesoMax) {
 		this.console= console;
-		this.partita = new Partita(nomeUtente, labirinto);		
+		this.partita = new Partita(nomeUtente, labirinto, cfu, pesoMax);		
 	}
 
-	public void gioca() {
+	public void gioca() throws Exception {
 		String istruzione;
 		this.console.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do
@@ -50,11 +51,14 @@ public class DiaDia {
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false
 	 *         altrimenti
+	 * @throws Exception 
 	 */
-	private boolean processaIstruzione(String istruzione) {
-		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica fisarmonica= new FabbricaDiComandiFisarmonica(this.console);
+	private boolean processaIstruzione(String istruzione) throws Exception {
+		AbstractComando comandoDaEseguire;
+		FabbricaDiComandiRiflessiva fisarmonica= new FabbricaDiComandiRiflessiva(this.console);
 		comandoDaEseguire= fisarmonica.costruisciComando(istruzione);
+		if (comandoDaEseguire==null)
+			this.console.mostraMessaggio("Comando Sconosciuto");
 		comandoDaEseguire.esegui(this.partita);
 		
 		/*
@@ -180,6 +184,7 @@ public class DiaDia {
 
 	/**
 	 * Comando "Fine".
+	 * @throws Exception 
 	 */
 	/*
 	private void fine() {
@@ -187,35 +192,45 @@ public class DiaDia {
 	}
 	*/
 
-	public static void main(String[] argc) {
-		IO console= new IOConsole();
+	public static void main(String[] argc) throws Exception {
+		Scanner scanner= new Scanner(System.in);
+		IO console= new IOConsole(scanner);
 		String nomeUtente;
 		console.mostraMessaggio("Benvenuto\nInserisci il tuo nome utente:\t");
 		nomeUtente= console.leggiRiga();
-		Labirinto labirinto = new LabirintoBuilder()		//manca la stanza iniziale
-								.addStanzaBloccata("Atrio", "chiave", "nord")
-								.addAttrezzo("ascia", 5)
-								.addStanzaVincente("Biblioteca")
-								.addAdiacenze("Atrio", "Biblioteca", "nord")
-								.addStanza("N10")
-								.addAttrezzo("lanterna", 3)
-								.addAdiacenze("Atrio", "N10", "sud")
-								.addAdiacenze("N10", "Atrio", "nord")
-								.addStanzaBuia("N11", "lanterna")
-								.addAttrezzo("osso", 2)
-								.addAdiacenze("Atrio", "N11", "est")
-								.addAdiacenze("N10", "N11", "est")
-								.addAdiacenze("N11", "Atrio", "ovest")
-								.addStanzaMagica("Laboratorio Campus")
-								.addAttrezzo("chiave", 1)
-								.addAdiacenze("N11", "Laboratorio Campus", "est")
-								.addAdiacenze("Atrio", "Laboratorio Campus", "ovest")
-								.addAdiacenze("N10", "Laboratorio Campus", "ovest")
-								.addAdiacenze("Laboratorio Campus", "Atrio", "est")
-								.addAdiacenze("Laboratorio Campus", "N11", "ovest")
-								.setStanzaIniziale("Atrio")
-								.getLabirinto();
-		DiaDia gioco = new DiaDia(console, nomeUtente, labirinto);
+		
+		Labirinto labirinto = new Labirinto("labirinto5.txt");
+				
+//				new LabirintoBuilder()		//manca la stanza iniziale
+//								.addStanzaBloccata("Atrio", "chiave", "nord")
+//								.addAttrezzo("ascia", 5)
+//								.addMago("Merlino", "Sono il mago dell'ingegneria, e posso donarti uno ed un solo attrezzo!", "osso", 2)
+//								.addStanzaVincente("Biblioteca")
+//								.addAdiacenze("Atrio", "Biblioteca", "nord")
+//								.addStanza("N10")
+//								.addAttrezzo("lanterna", 3)
+//								.addCane("Fuffy il Cane", "BAU BAU.", "bacchetta", 2)
+//								.addAdiacenze("Atrio", "N10", "sud")
+//								.addAdiacenze("N10", "Atrio", "nord")
+//								.addStanzaBuia("N11", "lanterna")
+//								.addAttrezzo("pugnale", 3)
+//								.addAdiacenze("Atrio", "N11", "est")
+//								.addAdiacenze("N10", "N11", "est")
+//								.addAdiacenze("N11", "Atrio", "ovest")
+//								.addStanzaMagica("Laboratorio Campus")
+//								.addAttrezzo("chiave", 1)
+//								.addStrega("Morgana", "Sono una strega della Vasca Navale e posso teletrasportarti in una stanza vicina!")
+//								.addAdiacenze("N11", "Laboratorio Campus", "est")
+//								.addAdiacenze("Atrio", "Laboratorio Campus", "ovest")
+//								.addAdiacenze("N10", "Laboratorio Campus", "ovest")
+//								.addAdiacenze("Laboratorio Campus", "Atrio", "est")
+//								.addAdiacenze("Laboratorio Campus", "N11", "ovest")
+//								.setStanzaIniziale("Atrio")
+//								.getLabirinto();
+		
+		//Configuratore conf = new Configuratore();
+		DiaDia gioco = new DiaDia(console, nomeUtente, labirinto, Configuratore.getCFU(), Configuratore.getPesoMax());
 		gioco.gioca();
+		scanner.close();
 	}
 }

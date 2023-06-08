@@ -1,16 +1,17 @@
 package it.uniroma3.diadia.giocatore;
 
+import it.uniroma3.diadia.Configuratore;
+
 public class Giocatore {
 
-	static final private int CFU_INIZIALI = 20;
 	private String nomeUtente;
 	private int cfu;
 	private Borsa borsa;
 
-	public Giocatore (String nome) {
+	public Giocatore (String nome, int cfu, int pesoMax) {
 		this.nomeUtente= nome;
-		this.cfu = CFU_INIZIALI;
-		this.borsa= new Borsa();
+		this.cfu = cfu;
+		this.borsa= new Borsa(pesoMax);
 	}
 
 	public String getNome() {

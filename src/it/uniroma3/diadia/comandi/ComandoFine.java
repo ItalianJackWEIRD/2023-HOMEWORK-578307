@@ -3,7 +3,7 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
-public class ComandoFine implements Comando{
+public class ComandoFine extends AbstractComando{
 	
 	private IO console;
 
@@ -14,22 +14,11 @@ public class ComandoFine implements Comando{
 		
 	}
 
-	@Override
-	public void setParametro(String direzione) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void setIo(IO console) {
 		this.console= console;
 		
-	}
-
-	@Override
-	public String getNome() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

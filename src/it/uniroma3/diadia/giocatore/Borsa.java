@@ -10,6 +10,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import it.uniroma3.diadia.Configuratore;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.attrezzi.ComparatoreAttrezziPerNome;
 
@@ -18,7 +19,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  */
 public class Borsa {
 
-	public final static int DEFAULT_PESO_MAX_BORSA = 10;
+	public final static int DEFAULT_PESO_MAX_BORSA = Configuratore.getPesoMax();
 	private Map<String, Attrezzo> attrezzi;
 	//private List<Attrezzo> attrezzi;		//LinkedList
 	//private Set<Attrezzo> attrezzi;		//TreeSet
@@ -114,6 +115,7 @@ public class Borsa {
 		else {
 			Attrezzo a= this.attrezzi.remove(nomeAttrezzo);
 			this.pesoAttuale -= a.getPeso();
+			this.numeroAttrezzi--;
 			return a;
 		}
 	}

@@ -1,6 +1,6 @@
 package it.uniroma3.diadia.comandi;
 
-import static org.junit.Assert.*;
+import java.util.Scanner;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,15 +8,18 @@ import org.junit.jupiter.api.BeforeEach;
 import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 
 public class ComandoAiutoTest {
+	
+	private Scanner scanner;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		IO console= new IOConsole();
+		scanner= new Scanner(System.in);
+		IO console= new IOConsole(scanner);
 		String nome= "G";
-		DiaDia d= new DiaDia(console, nome, new LabirintoBuilder().getLabirinto());
+		DiaDia d= new DiaDia(console, nome, new LabirintoBuilder().getLabirinto(), 5, 5);
 		d.gioca();
 	}
 

@@ -4,15 +4,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
-import java.util.Set;
-
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPrendiTest {
@@ -20,9 +18,10 @@ public class ComandoPrendiTest {
 	private Partita partita;
 	private Attrezzo attrezzo;
 	private Attrezzo attrezzoPesante;
-	private Attrezzo attrezzoNull;
 	private Comando comando;
 	private IO io;
+	
+}
 	
 	@BeforeEach
 	public void setUp() throws Exception {
@@ -52,8 +51,7 @@ public class ComandoPrendiTest {
 				.getLabirinto());
 		attrezzo = new Attrezzo("martello", 2);
 		attrezzoPesante = new Attrezzo("incudine", 11);
-		attrezzoNull = null;
-		comando = new ComandoPrendi();
+		comando = (Comando)new ComandoPrendi();
 		io = new IOConsole();
 		comando.setIo(io);
 	}
@@ -92,3 +90,5 @@ public class ComandoPrendiTest {
 	}
 	
 }
+
+

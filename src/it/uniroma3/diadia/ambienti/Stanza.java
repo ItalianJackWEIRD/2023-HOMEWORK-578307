@@ -1,11 +1,14 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo. Una stanza e' un luogo
@@ -26,10 +29,11 @@ public class Stanza {
 	private Map<String, Attrezzo> attrezzi;
 	//private Attrezzo[] attrezzi;
 	private int numeroAttrezzi;
-	private Map<String, Stanza> stanzeAdiacenti;
+	private Map<Direzione, Stanza> stanzeAdiacenti;
 	//private Stanza[] stanzeAdiacenti;
 	private int numeroStanzeAdiacenti;
 	//private String[] direzioni;
+	private AbstractPersonaggio personaggio;
 
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -42,6 +46,7 @@ public class Stanza {
 		this.numeroAttrezzi = 0;
 		this.stanzeAdiacenti = new TreeMap<>();
 		this.attrezzi = new TreeMap<>();
+		this.personaggio= null;
 	}
 
 	/**
@@ -51,7 +56,7 @@ public class Stanza {
 	 * @param stanza    stanza adiacente nella direzione indicata dal primo
 	 *                  parametro.
 	 */
-	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
+	public void impostaStanzaAdiacente(Direzione direzione, Stanza stanza) {
 		boolean aggiornato = false;
 		if (this.stanzeAdiacenti.containsKey(direzione)) {
 			this.stanzeAdiacenti.put(direzione, stanza);
@@ -84,7 +89,7 @@ public class Stanza {
 	 * 
 	 * @param direzione
 	 */
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
 		Stanza stanza = null;
 
 		if (this.stanzeAdiacenti.containsKey(direzione))
@@ -150,7 +155,7 @@ public class Stanza {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(this.nome);
 		risultato.append("\nUscite: ");
-		for (String direzione : this.stanzeAdiacenti.keySet())
+		for (Direzione direzione : this.stanzeAdiacenti.keySet())
 			if (direzione != null)
 				risultato.append(" " + direzione);
 		risultato.append("\nAttrezzi nella stanza: ");
@@ -162,6 +167,9 @@ public class Stanza {
 					risultato.append(" | " + attrezzo.toString());
 			risultato.append(" |");
 		}
+		if (this.personaggio!=null)
+			risultato.append("\nE' presente un " + this.personaggio.getClass().getSimpleName() + "!");
+			
 		risultato.append("\n");
 		return risultato.toString();
 	}
@@ -218,8 +226,24 @@ public class Stanza {
 
 	}
 
-	public Set<String> getDirezioni() {
+	public Set<Direzione> getDirezioni() {
 		return this.stanzeAdiacenti.keySet();
+	}
+	
+	public List<Stanza> getStanzeAdiacenti() {
+		List<Stanza> listaStanzeAdiacenti = new ArrayList<>();
+		for (Stanza s : stanzeAdiacenti.values()) {
+			listaStanzeAdiacenti.add(s);
+		}
+		return listaStanzeAdiacenti;
+	}
+	
+	public void addPersonaggio(AbstractPersonaggio p) {
+		this.personaggio= p;
+	}
+	
+	public AbstractPersonaggio getPersonaggio() {
+		return this.personaggio;
 	}
 
 }

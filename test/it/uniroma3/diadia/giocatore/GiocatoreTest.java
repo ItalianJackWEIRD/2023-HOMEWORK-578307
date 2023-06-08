@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 class GiocatoreTest {
 	
 	String nome= "giacomo";
-	Giocatore g = new Giocatore(nome);
+	Giocatore g = new Giocatore(nome, 5, 5);
 	
 	@Test
 	public void testGetCfuDefault() {
-		assertEquals(20, g.getCfu());
+		assertEquals(5, g.getCfu());
 	}
 	
 	@Test

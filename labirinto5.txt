@@ -1,0 +1,11 @@
+Stanze:atrio,biblioteca,N10,N11,laboratorio
+Magica:laboratorio
+Buia:N11 lanterna
+Bloccata:atrio nord chiave
+Inizio:atrio
+Vincente:biblioteca
+Mago:atrio Merlino Sono-il-mago-dell'ingegneria-e-posso-donarti-uno-ed-un-solo-attrezzo! osso 2
+Cane:N10 Fuffy_il_Cane BAU_BAU bacchetta 2
+Strega:laboratorio Morgana Sono_una_strega_della_Vasca_Navale_e_posso_teletrasportarti_in_una_stanza_vicina!
+Attrezzi:ascia 5 atrio, lanterna 3 N10, pugnale 3 N11, chiave 1 laboratorio
+Uscite:atrio nord biblioteca, atrio sud N10, atrio est N11, atrio ovest laboratorio, N10 nord atrio, N10 est N11, N10 ovest laboratorio, N11 ovest atrio, N11 est laboratorio, laboratorio est atrio, laboratorio ovest N11
